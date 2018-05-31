@@ -1,0 +1,1 @@
+{"username":"mike","password":"any800","svn":"https://192.168.11.11/svn/echat/branches/ucc_golden_easysale_frontSeperate/JtalkFront/"}
