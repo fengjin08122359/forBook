@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <span @click="startGame(0)">startGame</span>
-    <div class="gameCenter" v-bind:style="{ width: widthPx }">
-      <backgroundMatrix></backgroundMatrix>
-      <tankMatrix></tankMatrix>
-      <bulletMatrix></bulletMatrix>
-    </div>
+    <el-menu class="el-menu-demo"  mode="horizontal" :router="router"
+      default-active="1">
+      <el-menu-item v-for="item in menu" v-bind:key="item.name" :index="item.path">
+          <span slot="title" v-text="item.title"></span>
+      </el-menu-item>
+    </el-menu>
+    <keep-alive>
+    <router-view  v-wechat-title="$route.meta.title" class="routerView" ></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -14,60 +17,25 @@ export default {
   name: 'App',
   data () {
     return {
-      width: 330
+      router: true,
+      menu: [{
+        title: '搜索',
+        name: 'search',
+        path: 'search'
+      }, {
+        title: '仓库',
+        name: 'repository',
+        path: 'repository'
+      }]
     }
   },
   computed: {
-    widthPx () {
-      return this.width + 'px'
-    }
   },
   created () {
-    var that = this
-    that.startGame(0)
-    window.onkeydown = function (ev) {
-      console.log('onkeydown', ev.keyCode)
-      if (ev.keyCode === 37) {
-        that.$store.dispatch('goStep', 0)
-      } else if (ev.keyCode === 38) {
-        that.$store.dispatch('goStep', 1)
-      } else if (ev.keyCode === 39) {
-        that.$store.dispatch('goStep', 2)
-      } else if (ev.keyCode === 40) {
-        that.$store.dispatch('goStep', 3)
-      } else if (ev.keyCode === 32) {
-        that.$store.dispatch('shoot')
-      }
-    }
-    this.$store.dispatch('changeSize', this.width)
   },
   mounted () {
-    var that = this
-    window.onresize = () => {
-      return (() => {
-        that.$store.dispatch('changeSize')
-      })()
-    }
   },
   methods: {
-    addTank (tank) {
-      this.$store.dispatch('addTank', tank)
-    },
-    addOpTank (tank) {
-      this.$store.dispatch('addOpTank', tank)
-    },
-    startGame (num) {
-      var msg = this.$api.generateBackground(num)
-      this.resetGame()
-      this.addTank({level: 0, x: 3, y: 10})
-      this.addOpTank({level: 0, x: 0, y: 0, direction: 3})
-      this.addOpTank({level: 0, x: 5, y: 0, direction: 3})
-      this.addOpTank({level: 0, x: 10, y: 0, direction: 3})
-      this.$store.dispatch('changeBackground', msg.background)
-    },
-    resetGame () {
-      this.$store.dispatch('resetGame')
-    }
   }
 }
 </script>

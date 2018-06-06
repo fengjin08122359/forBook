@@ -114,4 +114,18 @@ router.get('/svnSetting', function(req, res, next) {
   });
 });
 
+
+//http://127.0.0.1:3000/postMsg/search?s=%E7%BE%8E%E5%9B%BD
+router.get('/search', function(req, res, next) {
+  if (req.query) {
+    phantom.search(req.query.s).then(function(text) {
+      console.log(text);
+      res.end(text);
+    });
+  } else {
+    res.end('{code:-1}');
+  }
+  
+});
+
 module.exports = router;

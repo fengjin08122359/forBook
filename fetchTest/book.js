@@ -37,10 +37,12 @@ try {
             //设置
         page.setting("userAgent", userAgent)
         
-        
+        console.log(bookUrl);
             //判断是否访问成功
-        const status = await page.open(bookUrl),code = 1;
-        
+        const status = await page.open(bookUrl,"POST",function(status){
+          console.log(status)
+        }),code = 1;
+        console.log(bookUrl);
         if (status !== 'success') {
             //访问失败修改状态码
             code = -1;

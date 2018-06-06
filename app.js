@@ -5,8 +5,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var ejs  = require('ejs');
-
+var file = require('./tools/file');
 var indexRouter = require('./routes/index');
+var postMsgRouter = require('./routes/postMsg');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var app = express();
@@ -21,9 +22,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/index', urlencodedParser, indexRouter);
+app.use('/postMsg', urlencodedParser, postMsgRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,4 +44,5 @@ app.use(function(err, req, res, next) {
   res.end(err.stack);
 });
 //mongoose.init();
+file.init();
 module.exports = app;

@@ -3,24 +3,25 @@
 import 'babel-polyfill'
 import promise from 'es6-promise'
 import Vue from 'vue'
+import router from './router'
 import App from './App'
-import api from './api'
 import store from './store'
-import type from './enum'
-import {backgroundMatrix, bulletMatrix, tankMatrix} from './matrix'
+import ElementUI from 'element-ui'
+import VueWechatTitle from 'vue-wechat-title'
+import vueUploadComponent from 'vue-upload-component'
 import './style/normalize.css'
+import 'font-awesome/css/font-awesome.min.css'
+import 'element-ui/lib/theme-chalk/index.css'
 
 promise.polyfill()
-Vue.prototype.$api = api
-Vue.prototype.$type = type
-Vue.use(backgroundMatrix)
-Vue.use(bulletMatrix)
-Vue.use(tankMatrix)
+Vue.use(VueWechatTitle)
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   components: { App },
+  router,
   store,
   template: '<App/>'
 })

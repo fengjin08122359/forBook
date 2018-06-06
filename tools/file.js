@@ -30,10 +30,8 @@ const files = {
   },
   init () {
     this.removeDir(path.join(__dirname, '../public'), true)
-    this.copy(path.join(__dirname, '../front/build/index.html'), path.join(__dirname, '../views/index.html'));
-    this.copy(path.join(__dirname, '../react-app/build/index.html'), path.join(__dirname, '../views/config.html'));
-    this.copyFolder(path.join(__dirname, '../front/build/static'),path.join(__dirname, '../public'))
-    this.copyFolder(path.join(__dirname, '../react-app/build/static'),path.join(__dirname, '../public'))
+    this.copy(path.join(__dirname, '../web/dist/index.html'), path.join(__dirname, '../views/index.html'));
+    this.copyFolder(path.join(__dirname, '../web/dist/public'),path.join(__dirname, '../public'))
   },
   copyFolder (srcDir, tarDir, cb) {
     var self = this;
